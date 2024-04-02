@@ -81,6 +81,25 @@ const Login = () => {
       setFormData({ ...formData, name: "", email: "", password: "" });
       setToggle(true);
       setNewProfile(true);
+    } else if (formData.name && formData.email && formData.password && toggle) {
+      const existingUser = item.find(
+        (user) =>
+          user.email === formData.email && user.password === formData.password
+      );
+      if (existingUser) {
+        alert("Account already exist");
+      } else {
+        const newObject = {
+          id: new Date().getTime().toString(),
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          checked: isChecked,
+        };
+        setItem([...item, newObject]);
+        setFormData({ ...formData, name: "", email: "", password: "" });
+        setNewProfile(true);
+      }
     } else {
       const newObject = {
         id: new Date().getTime().toString(),
